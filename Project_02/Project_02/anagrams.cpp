@@ -10,6 +10,7 @@
 #include <fstream>
 #include <istream>
 #include <cstring>
+#include <string>
 using namespace std;
 
 const int MAXRESULTS   = 20;    // Max matches that can be found
@@ -30,7 +31,7 @@ int main()
     int nwords;                // number of words read from dictionary
     string word;
     
-    dictfile.open("/Users/ouyang/Desktop/words.txt");
+    dictfile.open("C:/Users/allen/Desktop/words.txt");
     if (!dictfile) {
         cout << "File not found!" << endl;
         return (1);
@@ -38,7 +39,7 @@ int main()
     
     nwords = readDictionary(dictfile, dict);
     cout << nwords << " words" << endl;
-    for (int i =0; i < 5; i++)
+    for (int i =0; i < nwords; i++)
         cout << dict[i] << endl;
     
    /* cout << "Please enter a string for an anagram: ";
@@ -51,16 +52,30 @@ int main()
         recurPrint(results, numMatches); */
 }
 
+int getLoopSize(istream &dictfile, string *dict) {
+	if (!(dictfile >> dict[0]))
+		return 0;
+	int counter = 1 + readDictionary(dictfile, dict+1);
+	return counter;
+}
+
+/*void writeString(istream &dictfile, string dict[], int size) {
+	if (size < 0) return;
+	dictfile >> dict[size];
+	writeString(dictfile, dict, size - 1);
+}*/
+
+
 int readDictionary(istream &dictfile, string dict[]) {
-    
-    int counter = 0;
-    
-    for (int i = 0; i < MAXDICTWORDS; i++) {
-        dictfile >> dict[i] ;
-        counter ++;
-    }
-    
-    return counter;
+
+	/*int counter = 0;
+	while (dictfile>>dict[counter])
+	{
+	counter++;*/
+	//int counter = 5;
+	//writeString(dictfile, dict, counter);
+	int counter = getLoopSize(dictfile, dict);
+	return counter;
 }
 
 
