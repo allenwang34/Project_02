@@ -21,7 +21,8 @@ int recursivePermute(string word, const string dict[], int size, string results[
 void recurPrint(const string results[], int size);
 
 int getLoopSize(istream &dictfile, string *dict);
-
+void printPermute(string prefix, string rest);
+void replace(string &prefix, string &rest, int i);
 
 int main()
 {
@@ -72,10 +73,18 @@ int readDictionary(istream &dictfile, string dict[]) {
 }
 
 
-void swap(char &a, char &b) {
+/*void swap(char &a, char &b) {
 	char temp = a;
 	a = b;
 	b = temp;
+}*/
+
+void replace(string &prefix, string &rest, int i) {
+	if (i == 0)
+		return;
+	prefix += rest[i];
+	rest.erase(i, 1);
+	printPermute(prefix, rest);
 }
 
 void printPermute(string prefix, string rest) {
@@ -83,11 +92,12 @@ void printPermute(string prefix, string rest) {
 		cout << prefix << endl;
 	}
 	else {
-		for (int i = 0; i < rest.length() - 1; i++) {
+		/*for (int i = 0; i < rest.length(); i++) {
 			prefix += rest[i];
 			rest.erase(i, 1);
 			printPermute(prefix, rest);
-		}
+		}*/
+		replace(prefix, rest, rest.length());
 	}
 }
 
