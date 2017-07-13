@@ -22,7 +22,7 @@ void recurPrint(const string results[], int size);
 
 int getLoopSize(istream &dictfile, string *dict);
 void printPermute(string prefix, string rest);
-void replace(string &prefix, string &rest, int i);
+void replace(string prefix, string rest, int i);
 
 int main()
 {
@@ -32,7 +32,7 @@ int main()
     int nwords;                // number of words read from dictionary
     string word;
     
-    dictfile.open("C:/Users/allen/Desktop/words.txt");
+    dictfile.open("/Users/ouyang/Desktop/words.txt");
     if (!dictfile) {
         cout << "File not found!" << endl;
         return (1);
@@ -46,9 +46,9 @@ int main()
 	cout << "Please enter a string for an anagram: ";
     cin >> word;
 	recursivePermute(word, dict, nwords, results);
-	for (int i = 0; i < MAXRESULTS; i++) {
+	/*for (int i = 0; i < MAXRESULTS; i++) {
 		cout << results[i] << endl;
-	}
+	}*/
     
     /*int numMatches = recursivePermute(word, dict, nwords, results);
     if (!numMatches)
@@ -79,25 +79,26 @@ int readDictionary(istream &dictfile, string dict[]) {
 	b = temp;
 }*/
 
-void replace(string &prefix, string &rest, int i) {
+/*void replace(string prefix, string rest, int i) {
 	if (i == 0)
 		return;
 	prefix += rest[i];
 	rest.erase(i, 1);
 	printPermute(prefix, rest);
-}
+}*/
 
 void printPermute(string prefix, string rest) {
 	if (rest.length() == 0) {
 		cout << prefix << endl;
 	}
 	else {
-		/*for (int i = 0; i < rest.length(); i++) {
+		for (int i = 0; i < rest.length(); i++) {
 			prefix += rest[i];
 			rest.erase(i, 1);
+            cout << prefix <<"  " << rest <<endl;
 			printPermute(prefix, rest);
-		}*/
-		replace(prefix, rest, rest.length());
+		}
+		//replace(prefix, rest, rest.length());
 	}
 }
 
@@ -105,9 +106,15 @@ void printPermute(string prefix, string rest) {
 
 int recursivePermute(string word, const string dict[], int size, string results[]) {
 
-	string prefix = "";
-	string rest = "top";
-	printPermute(prefix,rest);
+	string prefix ="";
+    string rest = word;
+    /*for (int i =0; i < word.length();i++) {
+        prefix = word[i];
+        rest = word.erase(i,1);
+        printPermute(prefix,rest);
+    }*/
+    printPermute(prefix,rest);
+	
 	return 100;
 
 
