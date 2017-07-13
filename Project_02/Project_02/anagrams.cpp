@@ -32,7 +32,7 @@ int main()
     int nwords;                // number of words read from dictionary
     string word;
     
-    dictfile.open("/Users/ouyang/Desktop/words.txt");
+    dictfile.open("C:/Users/allen/Desktop/words.txt");
     if (!dictfile) {
         cout << "File not found!" << endl;
         return (1);
@@ -88,14 +88,16 @@ int readDictionary(istream &dictfile, string dict[]) {
 }*/
 
 void printPermute(string prefix, string rest) {
-	if (rest.length() == 0) {
-		cout << prefix << endl;
+	string tempPrefix = prefix;
+	string tempRest = rest;
+	if (tempRest.length() == 0) {
+		cout << tempPrefix << endl;
 	}
 	else {
 		for (int i = 0; i < rest.length(); i++) {
-			prefix += rest[i];
-			rest.erase(i, 1);
-            cout << prefix <<"  " << rest <<endl;
+			tempPrefix += rest[i];
+			tempRest.erase(i, 1);
+            //cout << prefix <<"  " << rest <<endl;
 			printPermute(prefix, rest);
 		}
 		//replace(prefix, rest, rest.length());
