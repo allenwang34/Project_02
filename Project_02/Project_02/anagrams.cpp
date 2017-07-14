@@ -16,19 +16,25 @@ using namespace std;
 const int MAXRESULTS   = 50;    // Max matches that can be found
 const int MAXDICTWORDS = 30000; // Max words that can be read in
 
+
 int readDictionary(istream &dictfile, string dict[]);
 int recursivePermute(string word, const string dict[], int size, string results[]);
 void recurPrint(const string results[], int size);
 
 int getLoopSize(istream &dictfile, string *dict);
+int readDictionary(istream &dictfile, string dict[]);
 void printPermute(string prefix, string rest, const string dict[], string results[], int dictSize, int resultsSize);
 void permuteLoop(int i, int max, string prefix, string rest, const string dict[], string results[], int dictSize, int resultsSize);
 bool checkDictionary(const string dict[], string prefix, int dictSize);
 void writeToResults(string results[], int resultsSize, string prefix);
+int checkResults(string results[], int resultsSize);
 
 
 int main()
 {
+    
+
+
     string results[MAXRESULTS];
     string dict[MAXDICTWORDS];
     ifstream dictfile;         // file containing the list of words
@@ -37,8 +43,8 @@ int main()
     
 
 
-    //dictfile.open("/Users/ouyang/Desktop/words.txt");
-	dictfile.open("C:/Users/allen/Desktop/words2.txt");
+    dictfile.open("/Users/ouyang/Desktop/words2.txt");
+	//dictfile.open("C:/Users/allen/Desktop/words2.txt");
     if (!dictfile) {
         cout << "File not found!" << endl;
         return (1);
