@@ -35,15 +35,17 @@ int main()
     int nwords;                // number of words read from dictionary
     string word;
     
+
+
     //dictfile.open("/Users/ouyang/Desktop/words.txt");
-	dictfile.open("C:/Users/allen/Desktop/words.txt");
+	dictfile.open("C:/Users/allen/Desktop/words2.txt");
     if (!dictfile) {
         cout << "File not found!" << endl;
         return (1);
     }
     
     nwords = readDictionary(dictfile, dict);
-    cout << nwords << " words has been added to the dictionary" << endl;
+    cout << nwords << " words added" << endl;
 
 	cout << "Please enter a string for an anagram: ";
     cin >> word;
