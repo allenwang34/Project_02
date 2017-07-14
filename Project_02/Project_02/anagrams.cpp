@@ -43,22 +43,17 @@ int main()
     }
     
     nwords = readDictionary(dictfile, dict);
-    cout << nwords << " words" << endl;
-    for (int i =0; i < nwords; i++)
-        cout << dict[i] << endl;
-    
+    cout << nwords << " words has been added to the dictionary" << endl;
+
 	cout << "Please enter a string for an anagram: ";
     cin >> word;
 	recursivePermute(word, dict, nwords, results);
-	for (int i = 0; i < MAXRESULTS; i++) {
-		cout << results[i] << endl;
-	}
-    
-    /*int numMatches = recursivePermute(word, dict, nwords, results);
+	
+    int numMatches = recursivePermute(word, dict, nwords, results);
     if (!numMatches)
         cout << "No matches found" << endl;
     else
-        recurPrint(results, numMatches); */
+        recurPrint(results, numMatches); 
 }
 
 int getLoopSize(istream &dictfile, string *dict) {
@@ -67,8 +62,6 @@ int getLoopSize(istream &dictfile, string *dict) {
 	int counter = 1 + readDictionary(dictfile, dict+1);
 	return counter;
 }
-
-
 
 int readDictionary(istream &dictfile, string dict[]) {
 
@@ -97,36 +90,24 @@ void writeToResults(string results[], int resultsSize, string prefix) {
 		return writeToResults(results+1, resultsSize-1, prefix);
 }
 
+
+int checkResults(string results[], int resultsSize) {
+	if (resultsSize == 0)
+		return 0;
+	if (results[0] == "")
+		return checkResults(results+1, resultsSize-1);
+	return 1 + checkResults(results+1, resultsSize - 1);
+
+}
+
+
 void printPermute(string prefix, string rest, const string dict[], string results[], int dictSize, int resultsSize) {
 	if (rest.length() == 0) {
-		//cout << prefix << endl;
-		//string readyToAdd;
-		/*for (int i = 0; i < dictSize; i++) {
-			if (prefix == dict[i]) {
-				readyToAdd = prefix;
-				break;
-			}
-		}*/
-		
 		if (checkDictionary(dict, prefix, dictSize)) {
-			/*for (int i = 0; i < resultsSize; i++) {
-				if (results[i] == "") {
-					results[i] = prefix;
-					break;
-				}
-			}*/
 			writeToResults(results, resultsSize, prefix);
 		}
 	}
 	else {
-		/*for (int i = 0; i < rest.length(); i++) {
-            string tempPrefix = prefix;
-            string tempRest = rest;
-			tempPrefix += rest[i];
-			tempRest.erase(i, 1);
-            printPermute(tempPrefix, tempRest);
-		}*/
-        
         permuteLoop(0, rest.length(), prefix, rest, dict, results, dictSize, resultsSize);
 	}
 }
@@ -144,12 +125,19 @@ void permuteLoop(int i, int max, string prefix, string rest, const string dict[]
 }
 
 
-
 int recursivePermute(string word, const string dict[], int size, string results[]) {
 
 	string prefix ="";
     string rest = word;
     printPermute(prefix, rest, dict, results, size, MAXRESULTS);
 
-	return 100;
+	return checkResults(results,MAXRESULTS);
+}
+
+
+void recurPrint(const string results[], int size) {
+	if (size == 0)
+		return;
+	cout << "The word found is: " << results[0] << endl;
+	recurPrint(results+1, size - 1);
 }
