@@ -43,8 +43,8 @@ int main()
     
 
 
-    dictfile.open("/Users/ouyang/Desktop/words2.txt");
-	//dictfile.open("C:/Users/allen/Desktop/words2.txt");
+    //dictfile.open("/Users/ouyang/Desktop/words2.txt");
+	dictfile.open("C:/Users/allen/Desktop/words2.txt");
     if (!dictfile) {
         cout << "File not found!" << endl;
         return (1);
